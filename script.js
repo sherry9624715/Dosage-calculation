@@ -11,6 +11,7 @@ var drug_name = "drug"
 btn.addEventListener('click',function(){postDataToEndpoint(drug_name)})
 
 function postDataToEndpoint(drug_name){
+    showLoading();
     const myobj = {name:drug_name};
     fetch(post_endpoint, {
         method: 'POST',
@@ -21,8 +22,29 @@ function postDataToEndpoint(drug_name){
         console.log(data);
         console.log(JSON.stringify(data));
         printNeededData(data);
+        showDrugData(data);
         })
+        
 }
+function showLoading(){
+    output.innerHTML = `<div>Loading....</div>`
+}
+
+function showDrugData(data){
+    var dosage = data.results[0].properties.dosage_mgkg.rich_text[0].plain_text;
+    var prefer_dosage = data.results[0].properties.prefer_dosage.rich_text[0].plain_text;
+    var injection_way = [];
+    var injection_way_raw_array = data.results[0].properties.injection_way.multi_select;
+    injection_way_raw_array.forEach(element => injection_way.push(element.name));
+    var medicine_name = data.results[0].properties.medicine_name.title[0].plain_text;
+    var density = data.results[0].properties.density_mgml.number;
+
+    output.innerHTML = `<ul><li>Dosage:${dosage}</li><li>prefer dosage:${prefer_dosage}</li><li>Injection way:${injection_way}</li><li>medicine name:${medicine_name}</li><li>density:${density}</li></ul>`;
+}
+
+
+
+
 
 function fetchEndpointData(){
     console.log("clicked!!")
@@ -53,4 +75,3 @@ function printNeededData(data){
     console.log(`density:${density}`);
     //TODO: need solution for null value
 }
-
