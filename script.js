@@ -9,5 +9,8 @@ btn.addEventListener('click',(e) =>{
         .then(res => res.json())
         .then(data => {
             console.log(data);
+            var recommand_dosage = response.results[0].properties.dosage-mgkg.rich_text[0].plain_text;
+            var 
+
         })
 })
