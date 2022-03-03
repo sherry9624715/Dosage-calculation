@@ -2,13 +2,34 @@
 
 const endpoint = "https://script.google.com/macros/s/AKfycbyCE8THCb3af17Q0qLOeayKFSlxVQg2yQNZ6sd1jjy51N8I98cdaKr0FXySNt92qfQG/exec"
 const post_endpoint = "https://script.google.com/macros/s/AKfycbwca8wUcnMhksKgfx3hw6b-tLnfdRqrAJ5hsnn2xX6x6-9uBD1hXCx6tLb_d7-aOuG7tg/exec"
+const drug_list = ["drug","Midazolam","yao"];
 const output = document.querySelector('.output');
-const btn = document.querySelector('button');
-console.log(btn);
+const btn_holder = document.querySelector('.drug-button-holder');
+const c_result = document.querySelector('.calculation-result');
+const input = document.querySelector('.weight');
 
-var drug_name = "drug"
+
+drug_list.forEach(drug => {
+    var btn = document.createElement('button');
+    const newContent = document.createTextNode(drug);
+    btn.setAttribute("id", drug);
+    btn.appendChild(newContent);
+    btn_holder.appendChild(btn);
+});
+
+const btns = document.querySelectorAll('button');
 // btn.addEventListener('click',function(){fetchEndpointData()})
-btn.addEventListener('click',function(){postDataToEndpoint(drug_name)})
+console.log(btns);
+btns.forEach(btn => btn.addEventListener('click',function(){postDataToEndpoint(btn.id)}));
+
+function calculateDosage(data){
+    var dosage = data.results[0].properties.dosage_mgkg.rich_text[0].plain_text;
+    var prefer_dosage = data.results[0].properties.prefer_dosage.rich_text[0].plain_text;
+    var density = data.results[0].properties.density_mgml.number;
+    var weight = input.value;
+    var dosage = weight*parseFloat(prefer_dosage)/parseFloat(density);
+    c_result.innerHTML = `<div>weight:${dosage} ml</div>`
+}
 
 function postDataToEndpoint(drug_name){
     showLoading();
@@ -23,6 +44,7 @@ function postDataToEndpoint(drug_name){
         console.log(JSON.stringify(data));
         printNeededData(data);
         showDrugData(data);
+        calculateDosage(data);
         })
         
 }
@@ -39,7 +61,7 @@ function showDrugData(data){
     var medicine_name = data.results[0].properties.medicine_name.title[0].plain_text;
     var density = data.results[0].properties.density_mgml.number;
 
-    output.innerHTML = `<ul><li>Dosage:${dosage}</li><li>prefer dosage:${prefer_dosage}</li><li>Injection way:${injection_way}</li><li>medicine name:${medicine_name}</li><li>density:${density}</li></ul>`;
+    output.innerHTML = `<ul><li>Dosage:${dosage}</li><li>Prefer Dosage:${prefer_dosage}</li><li>Injection way:${injection_way}</li><li>Medicine Name:${medicine_name}</li><li>Density:${density}</li></ul>`;
 }
 
 
