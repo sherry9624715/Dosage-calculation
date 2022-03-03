@@ -1,11 +1,25 @@
 //GAS: https://script.google.com/home/projects/1FpqqjMCtU8xqs2lS7G-7mPZk61pcJKb2bWyHBsWZMBIYci0fdv0V4dND/edit
 
 const endpoint = "https://script.google.com/macros/s/AKfycbyCE8THCb3af17Q0qLOeayKFSlxVQg2yQNZ6sd1jjy51N8I98cdaKr0FXySNt92qfQG/exec"
+const post_endpoint = "https://script.google.com/macros/s/AKfycbxuzR3Ctz4_FMg2mFVApyttIWzpjXp1uHcpzwLVjjbhz7VoBl3qJuf5wRuplfVzBj7Phg/exec"
 const output = document.querySelector('.output');
 const btn = document.querySelector('button');
 console.log(btn);
 
-btn.addEventListener('click',function(){fetchEndpointData()})
+// btn.addEventListener('click',function(){fetchEndpointData()})
+btn.addEventListener('click',function(){postDataToEndpoint()})
+
+function postDataToEndpoint(){
+    const myobj = "Midazolam";
+    fetch(post_endpoint, {
+        method: 'POST',
+        body: JSON.stringify(myobj)
+    })
+        .then(res => res.json())
+        .then (data => {
+        console.log(JSON.stringify(data));
+        })
+}
 
 function fetchEndpointData(){
     console.log("clicked!!")
