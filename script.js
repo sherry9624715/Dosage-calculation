@@ -1,23 +1,26 @@
 //GAS: https://script.google.com/home/projects/1FpqqjMCtU8xqs2lS7G-7mPZk61pcJKb2bWyHBsWZMBIYci0fdv0V4dND/edit
 
 const endpoint = "https://script.google.com/macros/s/AKfycbyCE8THCb3af17Q0qLOeayKFSlxVQg2yQNZ6sd1jjy51N8I98cdaKr0FXySNt92qfQG/exec"
-const post_endpoint = "https://script.google.com/macros/s/AKfycbxuzR3Ctz4_FMg2mFVApyttIWzpjXp1uHcpzwLVjjbhz7VoBl3qJuf5wRuplfVzBj7Phg/exec"
+const post_endpoint = "https://script.google.com/macros/s/AKfycbwca8wUcnMhksKgfx3hw6b-tLnfdRqrAJ5hsnn2xX6x6-9uBD1hXCx6tLb_d7-aOuG7tg/exec"
 const output = document.querySelector('.output');
 const btn = document.querySelector('button');
 console.log(btn);
 
+var drug_name = "drug"
 // btn.addEventListener('click',function(){fetchEndpointData()})
-btn.addEventListener('click',function(){postDataToEndpoint()})
+btn.addEventListener('click',function(){postDataToEndpoint(drug_name)})
 
-function postDataToEndpoint(){
-    const myobj = "Midazolam";
+function postDataToEndpoint(drug_name){
+    const myobj = {name:drug_name};
     fetch(post_endpoint, {
         method: 'POST',
-        body: JSON.stringify(myobj)
+        body: myobj.name
     })
         .then(res => res.json())
         .then (data => {
+        console.log(data);
         console.log(JSON.stringify(data));
+        printNeededData(data);
         })
 }
 
