@@ -6,7 +6,7 @@ const btn_holder = document.querySelector('.drug-button-holder');
 const c_result = document.querySelector('.calculation-result');
 const input = document.querySelector('.weight');
 const adjust_field = document.querySelector('.adjust-dosage');
-const drug_list = ['Ketamine >', 'Alphaxalone <', 'Propofol >', 'Alphaxalone >', 'Ketamine <', 'Propofol <', 'Butorphanol <', 'Butorphanol >20kg', 'Fentanyl / L', 'Fentanyl / S', 'Hydromorphone 大', 'Hydromorphone 小', 'Methadone >', 'Methadone <', 'Midazolam', 'Dexmedetomidine > 20', 'Dexmedetomidine < 20', 'Acepromazine  > 20 kg', 'Acepromazine  < 20 kg'];
+const drug_list = ['Ketamine > 20 kg', 'Alphaxalone < 20 kg', 'Propofol > 20 kg', 'Alphaxalone > 20 kg', 'Ketamine < 20 kg', 'Propofol < 20 kg', 'Butorphanol < 20 kg', 'Butorphanol >20kg', 'Fentanyl > 20 kg', 'Fentanyl < 20 kg', 'Hydromorphone > 20 kg', 'Hydromorphone < 20 kg', 'Methadone > 20 kg', 'Methadone < 20 kg', 'Midazolam', 'Dexmedetomidine > 20', 'Dexmedetomidine < 20', 'Acepromazine  > 20 kg', 'Acepromazine  < 20 kg'];
 //run getMedList() in console to update
 
 //add body surface area after UI is okay
