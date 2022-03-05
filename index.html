@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dosage Calculater LJ 🐶</title>
+    <title>🐶 Dr.LJ Dosage Calculator 🐶</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1>Dosage Calculater LJ 🐶</h1>
-    <label for="animal-weight">Animal Weight</label><br>
-    <input type="number" class="weight" placeholder="Weight in lb">
-    <br>
-    <div class="drug-button-holder"></div>
-    <div class="output">Output</div>
-    <div class="calculation-result">calculation-result</div>
 
+<div class="px-8 items-center min-h-screen bg-gray-50 py-6 flex flex-col justify-center relative overflow-hidden sm:py-12">
+    <h1 class="text-center text-3xl font-bold underline">🐶 Dr.LJ 🐶<br>Dosage Calculator</h1>
+    <input type="number" class="weight mt-8 sm:flex items-center w-72 text-left space-x-3 px-4 h-12 ring-1 ring-stone-800/10 rounded-lg text-slate-400" placeholder="Weight in lb">
+    <br>
+    <div class="mb-6 drug-button-holder w-full flex flex-wrap items-center"></div>
+    <div class="output mb-4">Choose a medicine to get result</div>
+    <div class="calculation-result"></div>
+    <div class="adjust-dosage"></div>
+</div>
 
     <script src="script.js"></script>
 </body>
