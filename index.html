@@ -7,18 +7,33 @@
     <title>🐶 Dr.LJ Dosage Calculator 🐶</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-800">
 
-<div class="px-8 items-center min-h-screen bg-gray-50 py-6 flex flex-col justify-center relative overflow-hidden sm:py-12">
-    <h1 class="text-center text-3xl font-bold underline">🐶 Dr.LJ 🐶<br>Dosage Calculator</h1>
+<div class="wrapper px-8 items-center min-h-screen py-6 flex flex-col justify-center relative overflow-hidden sm:py-12">
+    <h1 class="text-slate-200 text-center text-3xl font-bold underline">🐶 Dr.LJ 🐶<br>Dosage Calculator</h1>
     <input type="number" class="weight mt-8 sm:flex items-center w-72 text-left space-x-3 px-4 h-12 ring-1 ring-stone-800/10 rounded-lg text-slate-400" placeholder="Weight in lb">
     <br>
-    <div class="mb-6 drug-button-holder w-full flex flex-wrap items-center"></div>
-    <div class="output mb-4">Choose a medicine to get result</div>
+    <div class="drug-button-holder mb-6 w-full flex flex-wrap items-center"></div>
+    <div class="cards-holder"></div>
+
+
+    <!-- <div class="output mb-4">Choose a medicine to get result</div>
     <div class="calculation-result"></div>
-    <div class="adjust-dosage"></div>
+    <div class="adjust-dosage"></div> -->
 </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- <template id="card-template">
+    <div class="card-holder">
+        <h2 class="mb-2 text-xl font-bold underline">${data.medicine_name}</h2>
+        <ul class="list-disc">
+            <li class="dosage">Dosage: ${data.dosage}</li>
+            <li class="prefer-dosage">Prefer Dosage: ${data.prefer_dosage}</li>
+            <li class="injection-way">Injection way: ${data.injection_way}</li>
+            <li class="density">Density: ${data.density}</li>
+        </ul>
+    </div>
+</template> -->
