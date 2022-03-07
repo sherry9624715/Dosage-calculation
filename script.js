@@ -1,26 +1,57 @@
 //GAS: https://script.google.com/home/projects/1FpqqjMCtU8xqs2lS7G-7mPZk61pcJKb2bWyHBsWZMBIYci0fdv0V4dND/edit
+//Github Live: https://sherry9624715.github.io/Dosage-calculation/
 
-const endpoint = "https://script.google.com/macros/s/AKfycbxnrhl2fZn4Udk9Xqg8rHOFZrrAuHGaqRbzL8vPjzHe8PUpRRZq2bjyXXmcmYiRuoHxaQ/exec"
+const endpoint = "https://script.google.com/macros/s/AKfycbxkte5n1Q8X3bYrqxYEXGFw33FcF0k4pZ3tOipt7hoRU1g698Y8pGniEJvbkIpTwLb50g/exec"
 
 const output = document.querySelector('.output');
 const btn_holder = document.querySelector('.drug-button-holder');
 const weight_input = document.querySelector('.weight');
-const caards_holder = document.querySelector('.cards-holder');
+const cards_holder = document.querySelector('.cards-holder');
+const species_toggle = document.querySelector('input[type=checkbox]')
 
-const drug_list = ['Ketamine>20', 'Alphaxalone<20', 'Propofol>20', 'Alphaxalone>20', 'Ketamine<20', 'Propofol<20', 'Butorphanol<20', 'Butorphanol>20', 'Fentanyl>20', 'Fentanyl<20', 'Hydromorphone>20', 'Hydromorphone<20', 'Methadone>20', 'Methadone<20', 'Midazolam', 'Dexmedetomidine>20', 'Dexmedetomidine<20', 'Acepromazine>20', 'Acepromazine<20'];
+const drug_list = {"med_list":[{"name":"Propofol_cat","species":["cat"]},{"name":"Dexmedetomidine_cat","species":["cat"]},{"name":"Acepromazine_cat","species":["cat"]},{"name":"Ketamine>20","species":["dog"]},{"name":"Alphaxalone<20","species":["dog","cat"]},{"name":"Propofol>20","species":["dog"]},{"name":"Alphaxalone>20","species":["dog"]},{"name":"Ketamine<20","species":["dog","cat"]},{"name":"Propofol<20","species":["dog"]},{"name":"Butorphanol<20","species":["dog","cat"]},{"name":"Butorphanol>20","species":["dog"]},{"name":"Fentanyl>20","species":["dog"]},{"name":"Fentanyl<20","species":["dog","cat"]},{"name":"Hydromorphone>20","species":["dog"]},{"name":"Hydromorphone<20","species":["dog","cat"]},{"name":"Methadone>20","species":["dog"]},{"name":"Methadone<20","species":["dog","cat"]},{"name":"Midazolam","species":["dog"]},{"name":"Dexmedetomidine>20","species":["dog"]},{"name":"Dexmedetomidine<20","species":["dog"]},{"name":"Acepromazine>20","species":["dog"]},{"name":"Acepromazine<20","species":["dog"]}]};
 //run getMedList() in console to update drug list
 
+//TODO list:
 //add lb <---> kg
-//add body surface area after UI is okay
+//add button toggle
+
+//PO xxkg~xxkg Ns 
+//PO xxkg 0.25 0.5 reset
+
+//bugged when press one drug 2 times
+//add body surface area
 //add 常用組合（ex for 胰臟炎）
 //add pull down to reload
-//bugged when press one drug 2 times
+//icon for homepage
+var species = "dog"
 
 
-printButtons();
+species_toggle.addEventListener("input",()=>{
+    if(species_toggle.checked){
+        species = "cat";
+    }else{
+        species = "dog";
+    }
+    btn_holder.innerHTML = "";
+    cards_holder.innerHTML = "";
+    printButtons(species);
+    console.log(species_toggle.checked)
+})
 
-function printButtons(){
-    drug_list.forEach(drug => addDrugButton(drug));
+
+printButtons(species);
+
+function printButtons(species){
+    drug_list.med_list.forEach(drug => {
+        if(drug.species.includes(species)){
+            // drug.species.indexOf(species)
+            // console.log(`index of ${drug.name} is ${drug.species.indexOf(species)}`)
+            addDrugButton(drug.name)
+        }else{
+            console.log(`${drug.name} cannot applied to ${species}`)
+        }
+    });
     const btns = document.querySelectorAll('button');
     btns.forEach(btn => btn.addEventListener('click',() => postDataToEndpoint(btn.id)));
 }
@@ -74,15 +105,15 @@ function printCard(data){
     card_holder.setAttribute("id", `card-${data.medicine_name}`);
     card_holder.innerHTML= card_content;
     console.log(card_holder);
-    caards_holder.appendChild(card_holder);
+    cards_holder.appendChild(card_holder);
 }
 
 function addDosageAdjustField(data){
     var newDosageInput = document.createElement('input');
     newDosageInput.setAttribute("type", 'number');
-    newDosageInput.setAttribute("placeholder", 'Type new dosage here');
+    newDosageInput.setAttribute("placeholder", 'Update dosage');
     // newDosageInput.setAttribute("value", data.prefer_dosage);
-    newDosageInput.setAttribute("class", "adjust-field bg-transparent border-transparent border-b-slate-600 border-4 items-center w-36 mr-36 mb-4 text-left space-x-3 h-8 text-slate-100");
+    newDosageInput.setAttribute("class", "adjust-field bg-transparent border-transparent border-b-slate-600 border-4 items-center mr-8 mb-4 text-left space-x-3 h-8 text-slate-100");
     newDosageInput.value = data.prefer_dosage;
 
     var adjust_field = document.getElementById(`card-${data.medicine_name}`).getElementsByClassName("adjust-field")[0]
