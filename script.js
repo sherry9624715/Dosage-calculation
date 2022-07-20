@@ -19,6 +19,7 @@ const drug_list = {"med_list":[{"name":"Propofol_cat","species":["cat"]},{"name"
 //PO xxkg~xxkg Ns 
 //PO xxkg 0.25 0.5 reset
 
+//add auto filter <20, >20 (show button after weight entered)
 //bugged when press one drug 2 times
 //add body surface area
 //add 常用組合（ex for 胰臟炎）
